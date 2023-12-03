@@ -9,7 +9,7 @@ class Roman extends Phaser.Scene{
     }
 
     create(){
-        this.add.image(gmae.config.width, game.config.height, '/assets/moon_background.png');
+        this.add.image(game.config.width, game.config.height, '/assets/moon_background.png');
 
         this.platforms = this.physics.add.staticGroup();
         const platform = this.platforms.create(400, 550, 'platform').setOrigin(0.5, 0.5);
