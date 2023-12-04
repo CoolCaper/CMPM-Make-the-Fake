@@ -19,18 +19,34 @@ class Level1 extends Phaser.Scene {
         this.physics.world.gravity.y = 150;       
         this.scooby.body.setCollideWorldBounds(true)
         this.scooby.body.allowGravity = true;
-
-        //controls
-        
-        //this.platforms = this.physics.add.staticGroup();
-        //const platform = this.platforms.create(400, 550, 'platform').setOrigin(0.5, 0.5);
-        //this.physics.world.enable(platform);
-        //platform.setImmovable(true);
-
+        //variable set up         
+        this.is_jumping = false;        
+        this.jump_key = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
+        this.left_key = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
+        this.right_key = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
     }
 
-    update(){
-
+    update() {
+        if (Phaser.Input.Keyboard.JustDown(this.jump_key) && !this.is_jumping) {
+            this.jump_add_sfx.play();
+            this.is_jumping = true;
+            this.jump_num++;
+            this.player.setVelocityY(-1500);
+            this.clock = this.time.delayedCall(200, () => {
+                this.player.setVelocityY(225);
+                this.clock = this.time.delayedCall(200, () => {
+                    this.is_jumping = false;
+                }, null, this);
+            }, null, this);
+        }
+        
+        if (Phaser.Input.Keyboard.JustDown(this.left_key && !this.is_jumping) {
+            this.scooby.x++;
+        }
+        
+        if (Phaser.Input.Keyboard.JustDown(this.right_key) && !this.is_jumping) {
+            this.scooby.x--;
+        }
     }
 }
 //preload 

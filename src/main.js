@@ -14,6 +14,4 @@ let config = {
     height: 600,
     scene: [ Level1 ]
 }
-
-let keyJUMP, keyLEFT, keyRIGHT;
 const game = new Phaser.Game(config)
