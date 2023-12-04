@@ -1,5 +1,5 @@
 //class from play
-class level1 extends Phaser.Scene {
+class Level1 extends Phaser.Scene {
     constructor (){
         super('playScene')
     }
@@ -7,11 +7,13 @@ class level1 extends Phaser.Scene {
     preload(){
         this.load.image('background', './assets/moon_background.png');
         this.load.image('platform', './assets/moon_platform.png');
+        this.load.image('scooby', './assets/Scooby.png')
     }
 
     create(){
-        this.add.image(game.config.width, game.config.height, '/assets/moon_background.png');
-        //this.platforms = this.physics.add.staticGroup();
+        this.add.image(game.config.width, game.config.height, 'background')
+        this.scoob = new Scooby(this, game.config.width, game.config.height, this.scoob_path).setOrigin(0.5, 0)
+        this.platforms = this.physics.add.staticGroup();
         //const platform = this.platforms.create(400, 550, 'platform').setOrigin(0.5, 0.5);
         //this.physics.world.enable(platform);
         //platform.setImmovable(true);

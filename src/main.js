@@ -6,7 +6,7 @@ let config = {
     pixelArt: true,
     width: 800,
     height: 600,
-    scene: [ level1 ]
+    scene: [ Level1 ]
 }
 
 let keyJUMP, keyLEFT, keyRIGHT;
