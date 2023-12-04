@@ -11,13 +11,22 @@ class Level1 extends Phaser.Scene {
     }
 
     create(){
+        //image set up
         this.add.image(game.config.width / 2, game.config.height / 2, 'background');
-        this.add.image(game.config.width / 2, game.config.height /2, 'scooby')
-        this.add.image('platform')
+        this.scooby = this.physics.add.sprite(game.config.width / 2, game.config.height / 2, 'scooby')
+        this.add.image(game.config.width / 2, game.config.height, 'platform')
+        //physics set up
+        this.physics.world.gravity.y = 150;       
+        this.scooby.body.setCollideWorldBounds(true)
+        this.scooby.body.allowGravity = true;
+
+        //controls
+        
         //this.platforms = this.physics.add.staticGroup();
         //const platform = this.platforms.create(400, 550, 'platform').setOrigin(0.5, 0.5);
         //this.physics.world.enable(platform);
         //platform.setImmovable(true);
+
     }
 
     update(){

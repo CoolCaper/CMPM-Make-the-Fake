@@ -1,6 +1,11 @@
+class Scooby extends Phaser.GameObjects.Sprite {
+    constructor(scene, x, y, texture, frame) {
+        super(scene, x, y, texture, frame);
+    }
+
 
 //  scooby jump
-/*
+update() {
 
         if (Phaser.Input.Keyboard.JustDown(this.jump_key) && !this.is_jumping && this.jump_num < 1) {
             this.jump_add_sfx.play();
@@ -24,4 +29,5 @@
         if (Phaser.Input.Keyboard.JustDown(this.key_LEFT)) {
             this.x--;
         }
-*/
+}
+}
