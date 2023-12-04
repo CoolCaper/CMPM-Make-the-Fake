@@ -1,33 +1,60 @@
-class Scooby extends Phaser.GameObjects.Sprite {
-    constructor(scene, x, y, texture, frame) {
-        super(scene, x, y, texture, frame);
+class Scooby extends Phaser.Physics.Arcade.Sprite {
+    constructor(scene, x, y,) {
+        super(scene, x, y, 'Scooby');
+
+        scene.add.existing(this);
+        scene.physics.world.enable(this);
+        this.setScale(0.5);
+        this.setCollideWorldBounds(true);
+        this.speed = (160);
+
+        this.body.setCollideWorldBounds(true)
+        this.body.allowGravity = true;
+        // Set up cursor keys
+        this.cursors = scene.input.keyboard.createCursorKeys();
+        this.jumpKey = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
     }
 
 
-//  scooby jump
-update() {
 
-        if (Phaser.Input.Keyboard.JustDown(this.jump_key) && !this.is_jumping && this.jump_num < 1) {
-            this.jump_add_sfx.play();
-            this.is_jumping = true;
-            this.jump_num++;
-            this.player.setVelocityY(-1500);
-            this.clock = this.time.delayedCall(200, () => {
-                this.player.setVelocityY(225);
-                this.clock = this.time.delayedCall(200, () => {
-                    this.is_jumping = false;
-                }, null, this);
-            }, null, this);
+    update() {
+
+        if (this.cursors.left.isDown) {
+            this.setFlipX(true);
+            this.setVelocityX(-this.speed);
+        } else if (this.cursors.right.isDown) {
+            this.setFlipX(false);
+            this.setVelocityX(this.speed);
+        } else {
+            this.setVelocityX(0);
         }
-
+    
+        // Player jumping
+        if (this.jumpKey.isDown && this.body.onFloor()) {
+            this.setVelocityY(-220);
+        }
         
-        if (Phaser.Input.Keyboard.JustDown(this.key_RIGHT)) {
-            this.x++;
-        }
+            // if (Phaser.Input.Keyboard.JustDown(this.jump_key) && !this.is_jumping && this.jump_num < 1) {
+            //     this.jump_add_sfx.play();
+            //     this.is_jumping = true;
+            //     this.jump_num++;
+            //     this.player.setVelocityY(-1500);
+            //     this.clock = this.time.delayedCall(200, () => {
+            //         this.player.setVelocityY(225);
+            //         this.clock = this.time.delayedCall(200, () => {
+            //             this.is_jumping = false;
+            //         }, null, this);
+            //     }, null, this);
+            // }
 
-        
-        if (Phaser.Input.Keyboard.JustDown(this.key_LEFT)) {
-            this.x--;
+            
+            // if (Phaser.Input.Keyboard.JustDown(keyRIGHT)) {
+            //     this.x++;
+            // }
+
+            
+            // if (Phaser.Input.Keyboard.JustDown(keyLEFT)) {
+            //     this.x--;
+            // }
         }
-}
 }
