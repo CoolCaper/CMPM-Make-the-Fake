@@ -7,10 +7,13 @@ class Level1 extends Phaser.Scene {
     preload(){
         this.load.image('background', './assets/moon_background.png');
         this.load.image('platform', './assets/moon_platform.png');
+        this.load.image('scooby', './assets/Scooby.png')
     }
 
     create(){
-        this.add.image(game.config.width, game.config.height, '/assets/moon_background.png');
+        this.add.image(game.config.width / 2, game.config.height / 2, 'background');
+        this.add.image(game.config.width / 2, game.config.height /2, 'scooby')
+        this.add.image('platform')
         //this.platforms = this.physics.add.staticGroup();
         //const platform = this.platforms.create(400, 550, 'platform').setOrigin(0.5, 0.5);
         //this.physics.world.enable(platform);
