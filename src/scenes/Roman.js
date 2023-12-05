@@ -51,8 +51,6 @@ class Roman extends Phaser.Scene{
         const platform = this.platforms.create(x, y, 'roman_platform');
         platform.setScale(scale);
         platform.setOrigin(0.5, 0.5);
-    
-        // Enable physics for the platform
         this.physics.world.enable(platform);
         platform.setImmovable(true);
       }
