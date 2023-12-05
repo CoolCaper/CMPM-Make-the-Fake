@@ -29,7 +29,7 @@ class Roman extends Phaser.Scene{
 
     preload(){
         this.load.image('colosseum', './assets/Roman_background.png');
-        this.load.image('roman_platform', '/assets/Roman_platform.png');
+        this.load.image('roman_platform', './assets/RP.png');
     }
 
     create(){
@@ -75,8 +75,6 @@ class Roman extends Phaser.Scene{
         const platform = this.platforms.create(x, y, 'roman_platform');
         platform.setScale(scale);
         platform.setOrigin(0.5, 0.5);
-    
-        // Enable physics for the platform
         this.physics.world.enable(platform);
         platform.setImmovable(true);
       }
