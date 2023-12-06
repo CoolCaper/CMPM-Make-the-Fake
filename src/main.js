@@ -12,7 +12,7 @@ let config = {
     },
     width: 800,
     height: 600,
-    scene: [ Menu, Level1, Roman ]
+    scene: [ Menu, Level1]
 }
 
 let keyJUMP, keyLEFT, keyRIGHT;

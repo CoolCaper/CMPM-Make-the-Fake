@@ -8,18 +8,21 @@ class Level1 extends Phaser.Scene {
         this.load.image('background', './assets/moon_background.png');
         this.load.image('platform', './assets/moon_platform.png');
         this.load.image('Scooby', './assets/Scooby.png')
+        this.load.image('test', './assets/skeleton.png')
     }
 
     create(){
         //image set up
         this.add.image(game.config.width / 2, game.config.height / 2, 'background');
         this.scooby = new Scooby(this, game.config.width / 2, game.config.height);
+        this.enemy1 = new Enemy(this, game.config.width / 3, game.config.height / 2, 'test', 5)        
+        this.enemy2 = new Enemy(this, game.config.width / 1.4, game.config.height / 2, 'test', 5)
         //physics set up
         this.physics.world.gravity.y = 130;       
 
         this.platforms = this.physics.add.staticGroup();
         this.physics.add.collider(this.scooby, this.platforms);
-
+        this.physics.add.collider(this.enemy1, this.platforms);
         this.createPlatform(game.config.width / 3, game.config.height / 1.6, 1.5);
         this.createPlatform(game.config.width / 1.4, game.config.height / 1.6, 1.5);
 
@@ -45,6 +48,7 @@ class Level1 extends Phaser.Scene {
             this.scene.start('Roman'); 
         }
         this.scooby.update()
+        this.enemy1.update()
     }
 
     createPlatform(x, y, scale) {
