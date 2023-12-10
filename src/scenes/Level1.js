@@ -8,20 +8,29 @@ class Level1 extends Phaser.Scene {
         this.load.image('background', './assets/moon_background.png');
         this.load.image('platform', './assets/moon_platform.png');
         this.load.image('Scooby', './assets/Scooby.png')
-        this.load.image('test', './assets/skeleton.png')
+        this.load.image('test', './assets/moon.png')
     }
 
-    create(){
+    create() {
         //image set up
         this.add.image(game.config.width / 2, game.config.height / 2, 'background');
         this.scooby = new Scooby(this, game.config.width / 2, game.config.height);
-        this.enemy1 = new Enemy(this, game.config.width / 3, game.config.height / 2, 'test', 5)        
-        this.enemy2 = new Enemy(this, game.config.width / 1.4, game.config.height / 2, 'test', 5)
+        this.enemy1 = new Enemy(this, game.config.width / 3 - 50, game.config.height / 2, 'test')        
+        this.enemy2 = new Enemy(this, game.config.width / 1.4 - 50, game.config.height / 2, 'test')
         //physics set up
-        this.physics.world.gravity.y = 130;       
-
+        this.physics.world.gravity.y = 130;               
         this.platforms = this.physics.add.staticGroup();
+        //if collide with enemies, game over
+        this.physics.add.collider(this.scooby, this.enemy1, (scooby, enemy1) => {
+            this.scene.start('gameOver')
+        })
+        
+        this.physics.add.collider(this.scooby, this.enemy2, (scooby, enemy2) => {
+            this.scene.start('gameOver')
+        })
+        //platform set up
         this.physics.add.collider(this.scooby, this.platforms);
+        this.physics.add.collider(this.enemy2, this.platforms);        
         this.physics.add.collider(this.enemy1, this.platforms);
         this.createPlatform(game.config.width / 3, game.config.height / 1.6, 1.5);
         this.createPlatform(game.config.width / 1.4, game.config.height / 1.6, 1.5);
@@ -33,9 +42,10 @@ class Level1 extends Phaser.Scene {
         this.createPlatform(game.config.width / 1.2, game.config.height / 3.6, 1);
 
         this.createPlatform(game.config.width / 2, game.config.height / 4.8, 1);
-
+        //debug keys 
         NUMS.ONE = this.input.keyboard.addKey(NUMS.ONE);
-        NUMS.TWO = this.input.keyboard.addKey(NUMS.TWO);
+        NUMS.TWO = this.input.keyboard.addKey(NUMS.TWO);        
+        NUMS.THREE = this.input.keyboard.addKey(NUMS.THREE);
     }
 
     update(){
@@ -46,9 +56,13 @@ class Level1 extends Phaser.Scene {
         }else if(Phaser.Input.Keyboard.JustDown(NUMS.TWO)){
             this.sound.play('sfx_select');
             this.scene.start('Roman'); 
+        }else if(Phaser.Input.Keyboard.JustDown(NUMS.THREE)){
+            this.sound.play('sfx_select');
+            this.scene.start('Level3'); 
         }
         this.scooby.update()
         this.enemy1.update()
+        this.enemy2.update()
     }
 
     createPlatform(x, y, scale) {
@@ -62,6 +76,12 @@ class Level1 extends Phaser.Scene {
       }
 
 }
+
+//more sounds
+//organized code
+//tweens
+//animations? (leave that to guy)
+//jungle enemies
 //preload 
 // - Scooby
 // - background
@@ -69,7 +89,7 @@ class Level1 extends Phaser.Scene {
 // -enemies
 // sbacks
 // create
-
+//
 // - should enemies get a separate class? 
 // - background
 // -platforms

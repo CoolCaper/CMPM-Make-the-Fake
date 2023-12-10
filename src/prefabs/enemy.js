@@ -22,15 +22,12 @@ class Enemy extends Phaser.Physics.Arcade.Sprite  {
         this.rightDir = 20; 
         this.right = true;
         this.direction = 0;
-        this.steps = 60;
+        this.steps = 90;
         this.left = false;
         this.right = true;
 
     }
     update() {
-        //walk right dir
-        //walk left dir
-        console
         if (this.direction < this.steps && this.body.onFloor() && this.right) {
             this.x++;
             this.direction++;
@@ -48,20 +45,4 @@ class Enemy extends Phaser.Physics.Arcade.Sprite  {
             this.direction--;
         }
     }
-        /*
-        if (this.direction > this.right_dir && this.right) {
-            this.right = false;
-            this.direction = 0;
-        }        
-        
-        if (this.direction > this.left_dir && !this.right) {
-            this.right = false;
-            this.direction = 0;
-        }        
-        if (this.direction <= this.rightDir + this.leftDir && !this.right) {
-            this.x--;
-            this.direction++;
-        }
-        */
-
-    }
+}

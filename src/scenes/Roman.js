@@ -33,6 +33,7 @@ class Roman extends Phaser.Scene{
 
         NUMS.ONE = this.input.keyboard.addKey(NUMS.ONE);
         NUMS.TWO = this.input.keyboard.addKey(NUMS.TWO);
+        NUMS.THREE = this.input.keyboard.addKey(NUMS.THREE);
     }
 
     update(){
@@ -43,6 +44,9 @@ class Roman extends Phaser.Scene{
         }else if(Phaser.Input.Keyboard.JustDown(NUMS.TWO)){
             this.sound.play('sfx_select');
             this.scene.start('Roman'); 
+        }else if(Phaser.Input.Keyboard.JustDown(NUMS.THREE)){
+            this.sound.play('sfx_select');
+            this.scene.start('Level3'); 
         }
         this.scooby.update()
     }
