@@ -6,7 +6,7 @@ class Level3 extends Phaser.Scene {
 
     preload(){
         this.load.image('background', './assets/jungle.png');
-        this.load.image('platform', './assets/moon_platform.png');
+        this.load.image('platform', './assets/jungle_platform.png');
         this.load.image('Scooby', './assets/Scooby.png')
         this.load.image('dino', './assets/Dino.png')
     }
@@ -23,15 +23,16 @@ class Level3 extends Phaser.Scene {
         //if collide with enemies, game over
         this.physics.add.collider(this.scooby, this.enemy1, (scooby, enemy1) => {
             this.scene.start('gameOver')
-        })
-        
+        })        
         this.physics.add.collider(this.scooby, this.enemy2, (scooby, enemy2) => {
             this.scene.start('gameOver')
         })
         //platform set up
+        //make platforms solid to jump on
         this.physics.add.collider(this.scooby, this.platforms);
         this.physics.add.collider(this.enemy2, this.platforms);        
         this.physics.add.collider(this.enemy1, this.platforms);
+        //spawn platform
         this.createPlatform(game.config.width / 3, game.config.height / 1.6, 1.5);
         this.createPlatform(game.config.width / 1.4, game.config.height / 1.6, 1.5);
 

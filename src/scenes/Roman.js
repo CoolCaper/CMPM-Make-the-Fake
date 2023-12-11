@@ -5,7 +5,8 @@ class Roman extends Phaser.Scene{
 
     preload(){
         this.load.image('colosseum', './assets/Roman_background.png');
-        this.load.image('roman_platform', './assets/RP.png');
+        this.load.image('roman_platform', './assets/RP.png');        
+        this.load.image('Scooby', './assets/Scooby.png')
     }
 
     create(){

@@ -13,6 +13,7 @@ class Scooby extends Phaser.Physics.Arcade.Sprite {
         // Set up cursor keys
         this.cursors = scene.input.keyboard.createCursorKeys();
         this.jumpKey = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+
     }
 
 

@@ -17,7 +17,7 @@ let config = {
 
 let keyJUMP, keyLEFT, keyRIGHT;
 const game = new Phaser.Game(config)
-
+const instruct_i = Phaser.Input.Keyboard.KeyCodes.I
 const NUMS = {
     ONE: Phaser.Input.Keyboard.KeyCodes.ONE,
     TWO: Phaser.Input.Keyboard.KeyCodes.TWO,
