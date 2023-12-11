@@ -15,16 +15,18 @@ class Level1 extends Phaser.Scene {
     create() {
         //image set up
         this.add.image(game.config.width / 2, game.config.height / 2, 'background');
-        this.Ammo = this.add.image(25, 50, 'ammo')
-        this.Ammo2 = this.add.image(50, 50, 'ammo')
-        this.Ammo3 = this.add.image(75, 50, 'ammo')
+        this.Ammo = this.physics.add.sprite(25, 50, 'ammo').body.setAllowGravity(false)
+        this.Ammo2 = this.physics.add.sprite(50, 50, 'ammo').body.setAllowGravity(false)
+        this.Ammo3 = this.physics.add.sprite(75, 50, 'ammo').body.setAllowGravity(false)
         this.ammo_count = 1;
         this.ammo1 = false;
         this.ammo2 = false;
         this.ammo3 = false;
         this.scooby = new Scooby(this, game.config.width / 2, game.config.height);
         this.enemy1 = new Enemy(this, game.config.width / 3 - 50, game.config.height / 2, 'test')        
-        this.enemy2 = new Enemy(this, game.config.width / 1.4 - 50, game.config.height / 2, 'test')
+        this.enemy2 = new Enemy(this, game.config.width / 6 - 50, game.config.height / 2, 'test')
+        this.enemy3 = new Enemy(this, game.config.width / 1.2 - 120, game.config.height / 2, 'test')        
+        this.enemy4 = new Enemy(this, game.config.width / 1.1 - 100, game.config.height / 1.5, 'test')
         //physics set up
         this.physics.world.gravity.y = 130;               
         this.platforms = this.physics.add.staticGroup();
@@ -36,8 +38,19 @@ class Level1 extends Phaser.Scene {
         this.physics.add.collider(this.scooby, this.enemy2, (scooby, enemy2) => {
             this.scene.start('gameOver')
         })
+
+        
+        this.physics.add.collider(this.scooby, this.enemy3, (scooby, enemy3) => {
+            this.scene.start('gameOver')
+        })
+        
+        this.physics.add.collider(this.scooby, this.enemy4, (scooby, enemy4) => {
+            this.scene.start('gameOver')
+        })
         //platform set up
         this.physics.add.collider(this.scooby, this.platforms);
+        this.physics.add.collider(this.enemy3, this.platforms);        
+        this.physics.add.collider(this.enemy4, this.platforms);
         this.physics.add.collider(this.enemy2, this.platforms);        
         this.physics.add.collider(this.enemy1, this.platforms);
         this.createPlatform(game.config.width / 3, game.config.height / 1.6, 1.5);
@@ -78,17 +91,20 @@ class Level1 extends Phaser.Scene {
         }
         else if(Phaser.Input.Keyboard.JustDown(this.shoot)){
             console.log(this.ammo_count)
-            if (this.ammo_count = 1) {
-            this.Ammo.setX(this.scooby.x)
-            this.Ammo.setY(this.scooby.y)
+            if (this.ammo_count < 2) {
+            this.ammo1 = true
+            this.Ammo.x = this.scooby.x            
+            this.Ammo.y = this.scooby.y
             this.ammo_count++
-            } else if (this.ammo_count = 2) {
-            this.Ammo2.setX(this.scooby.x)
-            this.Ammo2.setY(this.scooby.y)
+            } else if (this.ammo_count < 3) {                
+            this.ammo2 = true
+            this.Ammo2.x = this.scooby.x
+            this.Ammo2.y = this.scooby.y
             this.ammo_count++
-            } else if (this.ammo_count = 3) {
-            this.Ammo3.setX(this.scooby.x)
-            this.Ammo3.setY(this.scooby.y)
+            } else if (this.ammo_count < 4) {               
+            this.ammo3 = true
+            this.Ammo3.x = this.scooby.x
+            this.Ammo3.y = this.scooby.y
             this.ammo_count++
             }
             
@@ -97,16 +113,17 @@ class Level1 extends Phaser.Scene {
             if (this.ammo1) {
                 this.Ammo.x++
             }
-            else if (this.ammo2) {
+            if (this.ammo2) {
                 this.Ammo2.x++
             }
-            else if (this.ammo3) {
+            if (this.ammo3) {
                 this.Ammo3.x++
             }
-        }
         this.scooby.update()
         this.enemy1.update()
         this.enemy2.update()
+        this.enemy3.update()
+        this.enemy4.update()
     }
 
     createPlatform(x, y, scale) {
