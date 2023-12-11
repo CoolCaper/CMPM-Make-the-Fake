@@ -8,15 +8,15 @@ class Level3 extends Phaser.Scene {
         this.load.image('background', './assets/jungle.png');
         this.load.image('platform', './assets/moon_platform.png');
         this.load.image('Scooby', './assets/Scooby.png')
-        this.load.image('test', './assets/moon.png')
+        this.load.image('dino', './assets/Dino.png')
     }
 
     create() {
         //image set up
         this.add.image(game.config.width / 2, game.config.height / 2, 'background');
         this.scooby = new Scooby(this, game.config.width / 2, game.config.height);
-        this.enemy1 = new Enemy(this, game.config.width / 3 - 50, game.config.height / 2, 'test')        
-        this.enemy2 = new Enemy(this, game.config.width / 1.4 - 50, game.config.height / 2, 'test')
+        this.enemy1 = new Enemy(this, game.config.width / 3 - 50, game.config.height / 2, 'dino')        
+        this.enemy2 = new Enemy(this, game.config.width / 1.4 - 50, game.config.height / 2, 'dino')
         //physics set up
         this.physics.world.gravity.y = 130;               
         this.platforms = this.physics.add.staticGroup();
