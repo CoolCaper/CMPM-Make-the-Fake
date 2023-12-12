@@ -10,6 +10,7 @@ class Level1 extends Phaser.Scene {
         this.scoob = this.load.image('Scooby', './assets/Scooby.png')
         this.load.image('test', './assets/moon.png')
         this.load.image('ammo', './assets/shoot.png')
+        this.load.image('ss', './assets/scooby snax.png')
     }
 
     create() {
@@ -18,10 +19,7 @@ class Level1 extends Phaser.Scene {
         this.Ammo = this.physics.add.sprite(25, 50, 'ammo').body.setAllowGravity(false)
         this.Ammo2 = this.physics.add.sprite(50, 50, 'ammo').body.setAllowGravity(false)
         this.Ammo3 = this.physics.add.sprite(75, 50, 'ammo').body.setAllowGravity(false)
-        this.ammo_count = 1;
-        this.ammo1 = false;
-        this.ammo2 = false;
-        this.ammo3 = false;
+        this.ss = this.physics.add.sprite(game.config.width / 2, game.config.height / 4.8 - 50, 'ss').body.setAllowGravity(false)
         this.scooby = new Scooby(this, game.config.width / 2, game.config.height);
         this.enemy1 = new Enemy(this, game.config.width / 3 - 50, game.config.height / 2, 'test')        
         this.enemy2 = new Enemy(this, game.config.width / 6 - 50, game.config.height / 2, 'test')
