@@ -15,9 +15,9 @@ class Level1 extends Phaser.Scene {
     create() {
         //image set up
         this.add.image(game.config.width / 2, game.config.height / 2, 'background');
-        this.Ammo = this.physics.add.sprite(25, 50, 'ammo').body.setAllowGravity(false)
-        this.Ammo2 = this.physics.add.sprite(50, 50, 'ammo').body.setAllowGravity(false)
-        this.Ammo3 = this.physics.add.sprite(75, 50, 'ammo').body.setAllowGravity(false)
+        //this.Ammo = this.physics.add.sprite(25, 50, 'ammo').body.setAllowGravity(false)
+        //this.Ammo2 = this.physics.add.sprite(50, 50, 'ammo').body.setAllowGravity(false)
+        //this.Ammo3 = this.physics.add.sprite(75, 50, 'ammo').body.setAllowGravity(false)
         this.ammo_count = 1;
         this.ammo1 = false;
         this.ammo2 = false;
@@ -30,23 +30,29 @@ class Level1 extends Phaser.Scene {
         //physics set up
         this.physics.world.gravity.y = 130;               
         this.platforms = this.physics.add.staticGroup();
+        this.ammoGroup = this.physics.add.staticGroup();
+        this.Ammo = this.ammoGroup.create(25, 50, 'ammo').setAllowGravity(false)
+        this.Ammo2 = this.ammoGroup.create(50, 50, 'ammo').setAllowGravity(false)
+        this.Ammo3 = this.ammoGroup.create(75, 50, 'ammo').setAllowGravity(false)
         //if collide with enemies, game over
-        this.physics.add.collider(this.scooby, this.enemy1, (scooby, enemy1) => {
+        this.physics.add.collider(this.scooby, this.enemyGroup, (scooby, enemyGroup) => {
+            this.scene.start('gameOver')
+        })       
+        //enemy / ammo collision done separately so that not all enemies disappear
+        this.physics.add.collider(this.ammoGroup, this.enemy1, (ammoGroup, enemy1) => {
             this.scene.start('gameOver')
         })
-        
-        this.physics.add.collider(this.scooby, this.enemy2, (scooby, enemy2) => {
+        this.physics.add.collider(this.ammoGroup, this.enemy2, (ammoGroup, enemy2) => {
             this.scene.start('gameOver')
         })
+        this.physics.add.collider(this.ammoGroup, this.enemy3, (ammoGroup, enemy3) => {
+            this.scene.start('gameOver')
+        })
+        this.physics.add.collider(this.ammoGroup, this.enemy4, (ammoGroup, enemy4) => {
+            this.scene.start('gameOver')
+        })
+        //if enemies get shot, they despawn
 
-        
-        this.physics.add.collider(this.scooby, this.enemy3, (scooby, enemy3) => {
-            this.scene.start('gameOver')
-        })
-        
-        this.physics.add.collider(this.scooby, this.enemy4, (scooby, enemy4) => {
-            this.scene.start('gameOver')
-        })
         //platform set up
         this.physics.add.collider(this.scooby, this.platforms);
         this.physics.add.collider(this.enemy3, this.platforms);        
