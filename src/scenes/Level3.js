@@ -6,7 +6,7 @@ class Level3 extends Phaser.Scene {
 
     preload(){
         this.load.image('jungle', './assets/jungle.png');
-        this.load.image('platform', './assets/jungle_platform.png');
+        this.load.image('j_platform', './assets/jungle_platform.png');
         this.scoob = this.load.image('Scooby', './assets/Scooby.png')
         this.load.image('dino', './assets/dino.png')
         this.load.image('ammo', './assets/shoot.png')
@@ -247,7 +247,7 @@ class Level3 extends Phaser.Scene {
     }
 
     createPlatform(x, y, scale) {
-        const platform = this.platforms.create(x, y, 'platform');
+        const platform = this.platforms.create(x, y, 'j_platform');
         platform.setScale(scale);
         platform.setOrigin(0.5, 0.5);
     
