@@ -33,14 +33,14 @@ class Scooby extends Phaser.Physics.Arcade.Sprite {
     
         // Player jumping
         if (this.jumpKey.isDown && this.body.onFloor()) {
-            this.setVelocityY(-400); // Adjust the jump velocity as needed
+            this.setVelocityY(-500); // Adjust the jump velocity as needed
         }
     
         // Apply custom gravity to achieve a more realistic jump arc
         if (this.body.velocity.y < 0) {
-          this.setGravityY(500); // Adjust the negative gravity as needed
+          this.setGravityY(600); // Adjust the negative gravity as needed
         } else {
-          this.setGravityY(350); // Adjust the positive gravity as needed
+          this.setGravityY(500); // Adjust the positive gravity as needed
         }
         
         }

@@ -19,8 +19,13 @@ class Level3 extends Phaser.Scene {
         this.Ammo = this.physics.add.sprite(25, 50, 'ammo').body.setAllowGravity(false)
         this.Ammo2 = this.physics.add.sprite(50, 50, 'ammo').body.setAllowGravity(false)
         this.Ammo3 = this.physics.add.sprite(75, 50, 'ammo').body.setAllowGravity(false)
+        this.All_Ammo  = [this.Ammo, this.Ammo2, this.Ammo3]
+
         this.ss = this.physics.add.sprite(game.config.width / 2, game.config.height / 4.8 - 50, 'ss').body.setAllowGravity(false)
         this.scooby = new Scooby(this, game.config.width / 2, game.config.height);
+
+        //enemy set up
+        this.enemies = this.physics.add.group();
         this.enemy1 = new Enemy(this, game.config.width / 3 - 50, game.config.height / 2, 'dino')        
         this.enemy2 = new Enemy(this, game.config.width / 6 - 50, game.config.height / 2, 'dino')
         this.enemy3 = new Enemy(this, game.config.width / 1.2 - 120, game.config.height / 2, 'dino')        
@@ -29,106 +34,29 @@ class Level3 extends Phaser.Scene {
         this.physics.world.gravity.y = 130;               
         this.platforms = this.physics.add.staticGroup();
         //if collide with enemies, game over
-        this.physics.add.collider(this.scooby, this.enemy1, (scooby, enemy1) => {
+        //if collide with enemies, game over
+        this.physics.add.collider(this.scooby, this.enemies, (scooby, enemy1) => {
             this.scene.start('gameOver')
-        })  
-        
-        this.physics.add.collider(this.scooby, this.enemy2, (scooby, enemy2) => {
-            this.scene.start('gameOver')
-        })       
-        this.physics.add.collider(this.scooby, this.enemy3, (scooby, enemy3) => {
-            this.scene.start('gameOver')
-        })       
-        this.physics.add.collider(this.scooby, this.enemy4, (scooby, enemy4) => {
-            this.scene.start('gameOver')
-        })            
+        })
+
         //enemy / ammo collision done separately so that not all enemies disappear
-        //Ammo & Enemy1 Handling
-        this.physics.add.collider(this.Ammo, this.enemy1, (Ammo, enemy1) => {
-            this.enemy1.body.enable = false
-            //this.Ammo.body.enable = false
-            this.enemy1.x = 9999
-            this.Ammo.x = 9999
-        })
-        this.physics.add.collider(this.Ammo2, this.enemy1, (Ammo2, enemy1) => {
-            this.enemy2.body.enable = false
-            //this.Ammo.body.enable = false
-            this.enemy2.x = 9999
-            this.Ammo2.x = 9999
-        })
-        this.physics.add.collider(this.Ammo3, this.enemy1, (Ammo3, enemy1) => {
-            this.enemy1.body.enable = false
-            //this.Ammo.body.enable = false
-            this.enemy1.x = 9999
-            this.Ammo.x = 9999
-        })
-        
-        //Ammo & Enemy2 Handling
-        this.physics.add.collider(this.Ammo, this.enemy2, (Ammo, enemy2) => {
-            this.enemy2.body.enable = false
-            //this.Ammo.body.enable = false
-            this.enemy2.x = 9999
-            this.Ammo.x = 9999
-        })
-        this.physics.add.collider(this.Ammo2, this.enemy2, (Ammo2, enemy2) => {
-            this.enemy2.body.enable = false
-            //this.Ammo.body.enable = false
-            this.enemy2.x = 9999
-            this.Ammo2.x = 9999
-        })
-        this.physics.add.collider(this.Ammo3, this.enemy2, (Ammo3, enemy2) => {
-            this.enemy2.body.enable = false
-            //this.Ammo.body.enable = false
-            this.enemy2.x = 9999
-            this.Ammo.x = 9999
-        })
-
-        //Ammo & Enemy3 Handling
-        this.physics.add.collider(this.Ammo, this.enemy3, (Ammo, enemy3) => {
-            this.enemy3.body.enable = false
-            //this.Ammo.body.enable = false
-            this.enemy3.x = 9999
-            this.Ammo.x = 9999
-        })
-        this.physics.add.collider(this.Ammo2, this.enemy3, (Ammo2, enemy3) => {
-            this.enemy3.body.enable = false
-            //this.Ammo.body.enable = false
-            this.enemy3.x = 9999
-            this.Ammo2.x = 9999
-        })
-        this.physics.add.collider(this.Ammo3, this.enemy3, (Ammo3, enemy3) => {
-            this.enemy3.body.enable = false
-            //this.Ammo.body.enable = false
-            this.enemy3.x = 9999
-            this.Ammo.x = 9999
-        })
-
-        //Ammo & Enemy4 Handling
-        this.physics.add.collider(this.Ammo, this.enemy4, (Ammo, enemy4) => {
-            this.enemy4.body.enable = false
-            //this.Ammo.body.enable = false
-            this.enemy4.x = 9999
-            this.Ammo.x = 9999
-        })
-        this.physics.add.collider(this.Ammo2, this.enemy4, (Ammo2, enemy4) => {
-            this.enemy4.body.enable = false
-            //this.Ammo.body.enable = false
-            this.enemy4.x = 9999
-            this.Ammo2.x = 9999
-        })
-        this.physics.add.collider(this.Ammo3, this.enemy4, (Ammo3, enemy4) => {
-            this.enemy4.body.enable = false
-            //this.Ammo.body.enable = false
-            this.enemy4.x = 9999
-            this.Ammo.x = 9999
-        })
+        //Ammo & Enemy Handling
+        // Loop through each enemy in the group
+        this.enemies.children.iterate((enemy) => {
+            for(let i = 0; i < 3; i++){
+                this.physics.add.collider(this.All_Ammo[i], enemy, (Ammo, enemy) => {
+                    enemy.body.enable = false
+                    //this.Ammo.body.enable = false
+                    enemy.x = 9999
+                    this.All_Ammo[i].x = 9999
+                })
+            }
+        });      
 
         //platform set up
         this.physics.add.collider(this.scooby, this.platforms);
-        this.physics.add.collider(this.enemy3, this.platforms);        
-        this.physics.add.collider(this.enemy4, this.platforms);
-        this.physics.add.collider(this.enemy2, this.platforms);        
-        this.physics.add.collider(this.enemy1, this.platforms);
+        this.physics.add.collider(this.enemies, this.platforms);    
+
         this.createPlatform(game.config.width / 3, game.config.height / 1.6, 1.5);
         this.createPlatform(game.config.width / 1.4, game.config.height / 1.6, 1.5);
 
@@ -137,6 +65,9 @@ class Level3 extends Phaser.Scene {
 
         this.createPlatform(game.config.width / 6, game.config.height / 3.6, 1);
         this.createPlatform(game.config.width / 1.2, game.config.height / 3.6, 1);
+
+        this.createPlatform(game.config.width / 2.4, game.config.height / 2.4, 1);
+        this.createPlatform(game.config.width / 1.6, game.config.height / 2.4, 1);
 
         this.createPlatform(game.config.width / 2, game.config.height / 4.8, 1);
         //shoot / instructions key        
