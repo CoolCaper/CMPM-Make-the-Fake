@@ -79,8 +79,7 @@ class Level1 extends Phaser.Scene {
 
         this.createPlatform(game.config.width / 2, game.config.height / 4.8, 1);
 
-        //shoot / instructions key        
-        this.instructions = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.I);
+        //shoot      
         this.shoot = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F);
 
         //debug keys 
@@ -111,18 +110,20 @@ class Level1 extends Phaser.Scene {
             },
             fixedWidth: 710
         }
-
+        //instructions set up
+        this.instructions = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.I);
         this.i_visible = false //instructions toggle
+        this.instruct = this.add.text(50, 100, 'Use the left and right arrow keys to move around!', this.instruct_config).setVisible(false)
+        this.instruct2 = this.add.text(50, 180, 'Press F to shoot! (But beware! You have limited\nammo! Check the top left corner to see how much\nyou have left)', this.instruct_config).setVisible(false)
+        this.instruct3 = this.add.text(50, 280, 'Press space to jump, avoid enemies, and most\nimportantly, collect the Scooby Snacks\n(the box with the s on it)!', this.instruct_config).setVisible(false)
+        this.instruct4 = this.add.text(50, 380, 'Finally, Press I to make this text go away!', this.instruct_config).setVisible(false)
+
         this.ammo_count = 1;
         
     }
 
     update(){
-        //switch levels for Debug purposes 
-        this.instruct = this.add.text(5000, 100, 'Use the left and right arrow keys to move around!', this.instruct_config);
-        this.instruct2 = this.add.text(50, 180, 'Press F to shoot! (But beware! You have limited\nammo! Check the top left corner to see how much\nyou have left)', this.instruct_config).setVisible(false);
-        this.instruct3 = this.add.text(50, 280, 'Press space to jump, avoid enemies, and most\nimportantly, collect the Scooby Snacks\n(the box with the s on it)!', this.instruct_config).setVisible(false);
-        this.instruct4 = this.add.text(50, 380, 'Finally, Press I to make this text go away!', this.instruct_config).setVisible(false);
+        //switch levels for Debug purposes
         console.log(this.scooby.left)
         //check direction Scooby is facing for shooting
         if (Phaser.Input.Keyboard.JustDown(this.LEFT)) {
@@ -145,21 +146,13 @@ class Level1 extends Phaser.Scene {
             this.scene.start('Level3'); 
             
         } else if (Phaser.Input.Keyboard.JustDown(this.instructions)) {
-            if (!this.i_visible) {     
-                console.log("Visible")         
-                this.instruct.x = 50     
-                this.instruct2.setVisible(true);
-                this.instruct3.setVisible(true);
-                this.instruct4.setVisible(true);
-                this.i_visible = true;
-            } else if (this.i_visible) {          
-                this.instruct.x = 5000
-                console.log('this should make instructions invisible')
-                this.instruct2.setVisible(false);        
-                this.instruct3.setVisible(false);        
-                this.instruct4.setVisible(false);
-                this.i_visible = false;
-            }
+            //Toggle instructions. 
+            this.i_visible = ! this.i_visible
+            this.instruct.setVisible(this.i_visible);
+            this.instruct2.setVisible(this.i_visible);
+            this.instruct3.setVisible(this.i_visible);
+            this.instruct4.setVisible(this.i_visible);
+
         }
         else if(Phaser.Input.Keyboard.JustDown(this.shoot)){
             console.log("SHOOT")
