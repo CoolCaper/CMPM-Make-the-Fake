@@ -24,6 +24,7 @@ class Level1 extends Phaser.Scene {
         this.All_Ammo  = [this.Ammo, this.Ammo2, this.Ammo3]
 
         this.ss = this.physics.add.sprite(game.config.width / 2, game.config.height / 4.8 - 50, 'ss').body.setAllowGravity(false)
+        this.ss.setImmovable(true)
         this.scooby = new Scooby(this, game.config.width / 2, game.config.height);
 
         //set up enemies 
@@ -41,6 +42,10 @@ class Level1 extends Phaser.Scene {
             this.scene.start('gameOver')
         })
 
+        
+        this.physics.add.collider(this.scooby, this.ss, (scooby, ss) => {
+            this.scene.start('Roman')
+        })
         //enemy / ammo collision done separately so that not all enemies disappear
         //Ammo & Enemy Handling
         // Loop through each enemy in the group
@@ -108,15 +113,16 @@ class Level1 extends Phaser.Scene {
         }
 
         this.i_visible = false //instructions toggle
+        this.ammo_count = 1;
         
     }
 
     update(){
         //switch levels for Debug purposes 
-        this.instruct = this.add.text(10, 100, 'Use the left and right arrow keys to move around!', this.instruct_config).setVisible(false);
-        this.instruct = this.add.text(10, 100, 'Press F to shoot! (But beware! You have limited ammo! Check the top left corner to see how much you have left)\nPress space to jump, avoid enemies, and most importantly,\nCollect the Scooby Snacks (the box with the s at the top)\n! Finally, Press I to make this text go away!', this.instruct_config).setVisible(false);
-        this.instruct = this.add.text(10, 100, 'Use the left and right arrow keys to move around! Press F to shoot! (But beware! You have limited ammo! Check the top left corner to see how much you have left)\nPress space to jump, avoid enemies, and most importantly,\nCollect the Scooby Snacks (the box with the s at the top)\n! Finally, Press I to make this text go away!', this.instruct_config).setVisible(false);
-        this.instruct = this.add.text(10, 100, 'Use the left and right arrow keys to move around! Press F to shoot! (But beware! You have limited ammo! Check the top left corner to see how much you have left)\nPress space to jump, avoid enemies, and most importantly,\nCollect the Scooby Snacks (the box with the s at the top)\n! Finally, Press I to make this text go away!', this.instruct_config).setVisible(false);
+        this.instruct = this.add.text(5000, 100, 'Use the left and right arrow keys to move around!', this.instruct_config);
+        this.instruct2 = this.add.text(50, 180, 'Press F to shoot! (But beware! You have limited\nammo! Check the top left corner to see how much\nyou have left)', this.instruct_config).setVisible(false);
+        this.instruct3 = this.add.text(50, 280, 'Press space to jump, avoid enemies, and most\nimportantly, collect the Scooby Snacks\n(the box with the s on it)!', this.instruct_config).setVisible(false);
+        this.instruct4 = this.add.text(50, 380, 'Finally, Press I to make this text go away!', this.instruct_config).setVisible(false);
         console.log(this.scooby.left)
         //check direction Scooby is facing for shooting
         if (Phaser.Input.Keyboard.JustDown(this.LEFT)) {
@@ -131,24 +137,32 @@ class Level1 extends Phaser.Scene {
         if (Phaser.Input.Keyboard.JustDown(NUMS.ONE)) {
             this.sound.play('sfx_select');
             this.scene.start('Level1');    
-        }else if(Phaser.Input.Keyboard.JustDown(NUMS.TWO)){
+        } else if(Phaser.Input.Keyboard.JustDown(NUMS.TWO)){
             this.sound.play('sfx_select');
             this.scene.start('Roman'); 
-        }else if(Phaser.Input.Keyboard.JustDown(NUMS.THREE)){
+        } else if(Phaser.Input.Keyboard.JustDown(NUMS.THREE)){
             this.sound.play('sfx_select');
             this.scene.start('Level3'); 
             
         } else if (Phaser.Input.Keyboard.JustDown(this.instructions)) {
-            if (!this.i_visible) {
-                this.instruct.setVisible(true);
+            if (!this.i_visible) {     
+                console.log("Visible")         
+                this.instruct.x = 50     
+                this.instruct2.setVisible(true);
+                this.instruct3.setVisible(true);
+                this.instruct4.setVisible(true);
                 this.i_visible = true;
-            } else if (this.i_visible) {                
-                this.instruct.setVisible(false);
+            } else if (this.i_visible) {          
+                this.instruct.x = 5000
+                console.log('this should make instructions invisible')
+                this.instruct2.setVisible(false);        
+                this.instruct3.setVisible(false);        
+                this.instruct4.setVisible(false);
                 this.i_visible = false;
             }
         }
         else if(Phaser.Input.Keyboard.JustDown(this.shoot)){
-            console.log(this.scooby.left)
+            console.log("SHOOT")
             if (this.ammo_count < 2) {
                 if (this.scooby.left) {
                     this.ammo1_left = true;
