@@ -157,12 +157,34 @@ class Level1 extends Phaser.Scene {
         this.ammo3_left = false;
         this.scooby.left = false;
 
+
+        //instruction text
+        
+        this.instruct_config = {
+            fontFamily: 'Courier',
+            fontSize: '24px',
+            backgroundColor: '#FACADE',
+            color: '#843605',
+            align: 'left',
+            padding: {
+              top: 5,
+              bottom: 5,
+            },
+            fixedWidth: 710
+        }
+
+        this.i_visible = false //instructions toggle
         
     }
 
     update(){
         //switch levels for Debug purposes 
+        this.instruct = this.add.text(10, 100, 'Use the left and right arrow keys to move around!', this.instruct_config).setVisible(false);
+        this.instruct = this.add.text(10, 100, 'Press F to shoot! (But beware! You have limited ammo! Check the top left corner to see how much you have left)\nPress space to jump, avoid enemies, and most importantly,\nCollect the Scooby Snacks (the box with the s at the top)\n! Finally, Press I to make this text go away!', this.instruct_config).setVisible(false);
+        this.instruct = this.add.text(10, 100, 'Use the left and right arrow keys to move around! Press F to shoot! (But beware! You have limited ammo! Check the top left corner to see how much you have left)\nPress space to jump, avoid enemies, and most importantly,\nCollect the Scooby Snacks (the box with the s at the top)\n! Finally, Press I to make this text go away!', this.instruct_config).setVisible(false);
+        this.instruct = this.add.text(10, 100, 'Use the left and right arrow keys to move around! Press F to shoot! (But beware! You have limited ammo! Check the top left corner to see how much you have left)\nPress space to jump, avoid enemies, and most importantly,\nCollect the Scooby Snacks (the box with the s at the top)\n! Finally, Press I to make this text go away!', this.instruct_config).setVisible(false);
         console.log(this.scooby.left)
+        //check direction Scooby is facing for shooting
         if (Phaser.Input.Keyboard.JustDown(this.LEFT)) {
             console.log("Turn")
             this.scooby.left = true
@@ -182,6 +204,14 @@ class Level1 extends Phaser.Scene {
             this.sound.play('sfx_select');
             this.scene.start('Level3'); 
             
+        } else if (Phaser.Input.Keyboard.JustDown(this.instructions)) {
+            if (!this.i_visible) {
+                this.instruct.setVisible(true);
+                this.i_visible = true;
+            } else if (this.i_visible) {                
+                this.instruct.setVisible(false);
+                this.i_visible = false;
+            }
         }
         else if(Phaser.Input.Keyboard.JustDown(this.shoot)){
             console.log(this.scooby.left)
@@ -214,7 +244,7 @@ class Level1 extends Phaser.Scene {
             this.Ammo3.x = this.scooby.x
             this.Ammo3.y = this.scooby.y
             this.ammo_count++
-            }
+        }
             
         }
         //make ammo move when shot
