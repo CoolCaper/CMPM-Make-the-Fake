@@ -111,6 +111,20 @@ class Level1 extends Phaser.Scene {
             fixedWidth: 710
         }
         //instructions set up
+
+        
+        this.instruct_toggle = { //toggle
+            fontFamily: 'Courier',
+            fontSize: '12px',
+            backgroundColor: '#FFFFFF',
+            color: '#000000',
+            align: 'left',
+            padding: {
+              top: 5,
+              bottom: 5,
+            },
+            fixedWidth: 250
+        }
         this.instructions = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.I);
         this.i_visible = false //instructions toggle
         this.instruct = this.add.text(50, 100, 'Use the left and right arrow keys to move around!', this.instruct_config).setVisible(false)
@@ -118,6 +132,7 @@ class Level1 extends Phaser.Scene {
         this.instruct3 = this.add.text(50, 280, 'Press space to jump, avoid enemies, and most\nimportantly, collect the Scooby Snacks\n(the box with the s on it)!', this.instruct_config).setVisible(false)
         this.instruct4 = this.add.text(50, 380, 'Finally, Press I to make this text go away!', this.instruct_config).setVisible(false)
 
+        this.i_toggle = this.add.text(550, 575, 'Press I to toggle the instructions!', this.instruct_toggle)
         this.ammo_count = 1;
         
     }

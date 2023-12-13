@@ -28,8 +28,8 @@ class Roman extends Phaser.Scene{
         this.enemies = this.physics.add.group();
         this.enemy1 = new Enemy(this, game.config.width / 3 - 50, game.config.height / 2, 'skeleton')        
         this.enemy2 = new Enemy(this, game.config.width / 6 - 50, game.config.height / 2, 'skeleton')
-        this.enemy3 = new Enemy(this, game.config.width / 1.2 - 120, game.config.height / 2, 'skeleton')        
-        this.enemy4 = new Enemy(this, game.config.width / 1.1 - 100, game.config.height / 1.5, 'lion')
+        this.enemy3 = new Enemy(this, game.config.width / 1.2 - 120, game.config.height / 2, 'lion')        
+        this.enemy4 = new Enemy(this, game.config.width / 1.1 - 100, game.config.height / 1.5, 'skeleton')
         this.scooby = new Scooby(this, game.config.width / 2, game.config.height);
        
         //physics set up
