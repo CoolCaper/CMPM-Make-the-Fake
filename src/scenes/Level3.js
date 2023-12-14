@@ -11,6 +11,15 @@ class Level3 extends Phaser.Scene {
         this.load.image('dino', './assets/dino.png')
         this.load.image('ammo', './assets/shoot.png')
         this.load.image('ss', './assets/scooby snax.png')
+        //shooting bools
+        this.ammo_true = false;
+        this.ammo1_left = false;
+        this.ammo2_left = false;
+        this.ammo3_left = false;        
+        this.ammo1 = false;
+        this.ammo2 = false
+        this.ammo3 = false
+        this.ammo_count = 1;
     }
     create() {
         //background image
@@ -87,13 +96,6 @@ class Level3 extends Phaser.Scene {
         this.LEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
         this.RIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
 
-        //shooting bools
-        this.ammo_true = false;
-        this.ammo1_left = false;
-        this.ammo2_left = false;
-        this.ammo3_left = false;
-        this.scooby.left = false;
-
 
         //instruction text
         this.instruct_config = {
@@ -131,7 +133,6 @@ class Level3 extends Phaser.Scene {
         this.instruct4 = this.add.text(50, 380, 'Finally, Press I to make this text go away!', this.instruct_config).setVisible(false)
 
         this.i_toggle = this.add.text(550, 575, 'Press I to toggle the instructions!', this.instruct_toggle)
-        this.ammo_count = 1;
         
     }
 

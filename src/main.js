@@ -2,7 +2,7 @@
 'use strict'
 
 let config = {
-    parent: 'phaser-game',
+    parent: 'gameView',
     type: Phaser.AUTO,
     pixelArt: true,    
     physics: {
@@ -13,6 +13,9 @@ let config = {
     },
     width: 800,
     height: 600,
+    scale: { //added framing
+        mode: Phaser.Scale.FIT
+    },
     scene: [ Menu, Level1, Roman, Level3, GameOver, Win]
 }
 

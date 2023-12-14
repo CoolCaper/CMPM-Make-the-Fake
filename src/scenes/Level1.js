@@ -14,6 +14,14 @@ class Level1 extends Phaser.Scene {
 
         //audio sfx
         this.load.audio('shoot', './assets/shoot_sfx.mp3');
+        this.ammo_true = false;
+        this.ammo1_left = false;
+        this.ammo2_left = false;
+        this.ammo3_left = false;        
+        this.ammo1 = false;
+        this.ammo2 = false
+        this.ammo3 = false
+        this.ammo_count = 1;
 
     }
 
