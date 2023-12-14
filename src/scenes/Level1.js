@@ -175,6 +175,7 @@ class Level1 extends Phaser.Scene {
         else if(Phaser.Input.Keyboard.JustDown(this.shoot)){
             console.log("SHOOT")
             if (this.ammo_count < 2) {
+                this.sound.play('shoot');
                 if (this.scooby.left) {
                     this.ammo1_left = true;
                 }
@@ -184,6 +185,7 @@ class Level1 extends Phaser.Scene {
                 this.ammo_count++
             } else if (this.ammo_count < 3) {                
                 this.ammo2 = true
+                this.sound.play('shoot');
                 if (this.scooby.left) {
                     this.ammo2_left = true;
                 }
@@ -192,7 +194,8 @@ class Level1 extends Phaser.Scene {
                 this.ammo_count++
                 console.log("ammo check")
                 console.log(this.ammo2_left)
-            } else if (this.ammo_count < 4) {               
+            } else if (this.ammo_count < 4) {         
+                this.sound.play('shoot');      
                 this.ammo3 = true
                 if (this.scooby.left) {
                     this.ammo3_left = true;
@@ -209,7 +212,6 @@ class Level1 extends Phaser.Scene {
         //make ammo move when shot
             if (this.ammo1) {
                 if (this.ammo1_left) {
-                    this.sound.play('shoot');
                     this.Ammo.x -= 4
                 } else {
                         this.Ammo.x += 4
@@ -217,7 +219,6 @@ class Level1 extends Phaser.Scene {
             }
             if (this.ammo2) {
                 if (this.ammo2_left) {
-                    this.sound.play('shoot');
                     this.Ammo2.x -= 4
                 } else {
                         this.Ammo2.x += 4
@@ -225,7 +226,6 @@ class Level1 extends Phaser.Scene {
             }
             if (this.ammo3) {
                 if (this.ammo3_left) {
-                    this.sound.play('shoot');
                     this.Ammo3.x -= 4
                 } else {
                         this.Ammo3.x += 4
