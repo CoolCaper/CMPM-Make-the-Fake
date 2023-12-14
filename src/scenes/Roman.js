@@ -14,24 +14,26 @@ class Roman extends Phaser.Scene{
         this.load.image('lion', './assets/lion.png')
     }
 
-    create(){
-        //add background 
-        this.add.image(game.config.width/2, game.config.height/2, 'colosseum');
-
+    create() {
+        //background image
+        this.add.image(game.config.width / 2, game.config.height / 2, 'colosseum');
+        //add ammo
         this.Ammo = this.physics.add.sprite(25, 50, 'ammo').body.setAllowGravity(false)
         this.Ammo2 = this.physics.add.sprite(50, 50, 'ammo').body.setAllowGravity(false)
         this.Ammo3 = this.physics.add.sprite(75, 50, 'ammo').body.setAllowGravity(false)
         this.All_Ammo  = [this.Ammo, this.Ammo2, this.Ammo3]
 
         this.ss = this.physics.add.sprite(game.config.width / 2, game.config.height / 4.8 - 50, 'ss').body.setAllowGravity(false)
-        
+        this.ss.setImmovable(true)
+        this.scooby = new Scooby(this, game.config.width / 2, game.config.height);
+
+        //set up enemies 
         this.enemies = this.physics.add.group();
         this.enemy1 = new Enemy(this, game.config.width / 3 - 50, game.config.height / 2, 'skeleton')        
         this.enemy2 = new Enemy(this, game.config.width / 6 - 50, game.config.height / 2, 'skeleton')
         this.enemy3 = new Enemy(this, game.config.width / 1.2 - 120, game.config.height / 2, 'lion')        
         this.enemy4 = new Enemy(this, game.config.width / 1.1 - 100, game.config.height / 1.5, 'skeleton')
-        this.scooby = new Scooby(this, game.config.width / 2, game.config.height);
-       
+        
         //physics set up
         this.physics.world.gravity.y = 130;
 
@@ -40,6 +42,10 @@ class Roman extends Phaser.Scene{
             this.scene.start('gameOver')
         })
 
+        //Scooby collies with snack = win level 
+        this.physics.add.collider(this.scooby, this.ss, (scooby, ss) => {
+            this.scene.start('winGame')
+        })
         //enemy / ammo collision done separately so that not all enemies disappear
         //Ammo & Enemy Handling
         // Loop through each enemy in the group
@@ -73,8 +79,7 @@ class Roman extends Phaser.Scene{
 
         this.createPlatform(game.config.width / 2, game.config.height / 4.8, 1);
 
-        //shoot / instructions key        
-        this.instructions = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.I);
+        //shoot      
         this.shoot = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F);
 
         //debug keys 
@@ -105,17 +110,35 @@ class Roman extends Phaser.Scene{
             },
             fixedWidth: 710
         }
+        //instructions set up
 
+        
+        this.instruct_toggle = { //toggle
+            fontFamily: 'Courier',
+            fontSize: '12px',
+            backgroundColor: '#FFFFFF',
+            color: '#000000',
+            align: 'left',
+            padding: {
+              top: 5,
+              bottom: 5,
+            },
+            fixedWidth: 250
+        }
+        this.instructions = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.I);
         this.i_visible = false //instructions toggle
+        this.instruct = this.add.text(50, 100, 'Use the left and right arrow keys to move around!', this.instruct_config).setVisible(false)
+        this.instruct2 = this.add.text(50, 180, 'Press F to shoot! (But beware! You have limited\nammo! Check the top left corner to see how much\nyou have left)', this.instruct_config).setVisible(false)
+        this.instruct3 = this.add.text(50, 280, 'Press space to jump, avoid enemies, and most\nimportantly, collect the Scooby Snacks\n(the box with the s on it)!', this.instruct_config).setVisible(false)
+        this.instruct4 = this.add.text(50, 380, 'Finally, Press I to make this text go away!', this.instruct_config).setVisible(false)
+
+        this.i_toggle = this.add.text(550, 575, 'Press I to toggle the instructions!', this.instruct_toggle)
+        this.ammo_count = 1;
         
     }
 
-    update(){
-        //switch levels for Debug purposes 
-        this.instruct = this.add.text(10, 100, 'Use the left and right arrow keys to move around!', this.instruct_config).setVisible(false);
-        this.instruct = this.add.text(10, 100, 'Press F to shoot! (But beware! You have limited ammo! Check the top left corner to see how much you have left)\nPress space to jump, avoid enemies, and most importantly,\nCollect the Scooby Snacks (the box with the s at the top)\n! Finally, Press I to make this text go away!', this.instruct_config).setVisible(false);
-        this.instruct = this.add.text(10, 100, 'Use the left and right arrow keys to move around! Press F to shoot! (But beware! You have limited ammo! Check the top left corner to see how much you have left)\nPress space to jump, avoid enemies, and most importantly,\nCollect the Scooby Snacks (the box with the s at the top)\n! Finally, Press I to make this text go away!', this.instruct_config).setVisible(false);
-        this.instruct = this.add.text(10, 100, 'Use the left and right arrow keys to move around! Press F to shoot! (But beware! You have limited ammo! Check the top left corner to see how much you have left)\nPress space to jump, avoid enemies, and most importantly,\nCollect the Scooby Snacks (the box with the s at the top)\n! Finally, Press I to make this text go away!', this.instruct_config).setVisible(false);
+    update() {
+        //switch levels for Debug purposes
         console.log(this.scooby.left)
         //check direction Scooby is facing for shooting
         if (Phaser.Input.Keyboard.JustDown(this.LEFT)) {
@@ -130,25 +153,26 @@ class Roman extends Phaser.Scene{
         if (Phaser.Input.Keyboard.JustDown(NUMS.ONE)) {
             this.sound.play('sfx_select');
             this.scene.start('Level1');    
-        }else if(Phaser.Input.Keyboard.JustDown(NUMS.TWO)){
+        } else if(Phaser.Input.Keyboard.JustDown(NUMS.TWO)){
             this.sound.play('sfx_select');
             this.scene.start('Roman'); 
-        }else if(Phaser.Input.Keyboard.JustDown(NUMS.THREE)){
+        } else if(Phaser.Input.Keyboard.JustDown(NUMS.THREE)){
             this.sound.play('sfx_select');
             this.scene.start('Level3'); 
             
         } else if (Phaser.Input.Keyboard.JustDown(this.instructions)) {
-            if (!this.i_visible) {
-                this.instruct.setVisible(true);
-                this.i_visible = true;
-            } else if (this.i_visible) {                
-                this.instruct.setVisible(false);
-                this.i_visible = false;
-            }
+            //Toggle instructions. 
+            this.i_visible = ! this.i_visible
+            this.instruct.setVisible(this.i_visible);
+            this.instruct2.setVisible(this.i_visible);
+            this.instruct3.setVisible(this.i_visible);
+            this.instruct4.setVisible(this.i_visible);
+
         }
         else if(Phaser.Input.Keyboard.JustDown(this.shoot)){
-            console.log(this.scooby.left)
+            console.log("SHOOT")
             if (this.ammo_count < 2) {
+                this.sound.play('shoot');
                 if (this.scooby.left) {
                     this.ammo1_left = true;
                 }
@@ -158,6 +182,7 @@ class Roman extends Phaser.Scene{
                 this.ammo_count++
             } else if (this.ammo_count < 3) {                
                 this.ammo2 = true
+                this.sound.play('shoot');
                 if (this.scooby.left) {
                     this.ammo2_left = true;
                 }
@@ -166,7 +191,8 @@ class Roman extends Phaser.Scene{
                 this.ammo_count++
                 console.log("ammo check")
                 console.log(this.ammo2_left)
-            } else if (this.ammo_count < 4) {               
+            } else if (this.ammo_count < 4) {         
+                this.sound.play('shoot');      
                 this.ammo3 = true
                 if (this.scooby.left) {
                     this.ammo3_left = true;
@@ -209,8 +235,7 @@ class Roman extends Phaser.Scene{
         this.enemy3.update()
         this.enemy4.update()
     }
-
-    //function for creating the platforms in the scence 
+     //function for creating the platforms in the scence 
     createPlatform(x, y, scale) {
         const platform = this.platforms.create(x, y, 'platform');
         platform.setScale(scale);

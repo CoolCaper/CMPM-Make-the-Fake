@@ -140,7 +140,7 @@ class Level1 extends Phaser.Scene {
         
     }
 
-    update(){
+    update() {
         //switch levels for Debug purposes
         console.log(this.scooby.left)
         //check direction Scooby is facing for shooting
