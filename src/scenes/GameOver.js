@@ -7,6 +7,7 @@ class GameOver extends Phaser.Scene{
       this.load.audio('sfx_select', './assets/select.mp3');
       this.load.image('vhs', './assets/vhs_background.png');
       this.load.image('logo', './assets/Scooby_logo.png');
+      this.scoob_tween = this.load.image('scooby', './assets/Scooby')
     }
     create(){
         let menuConfig = {
