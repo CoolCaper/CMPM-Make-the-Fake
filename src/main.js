@@ -1,3 +1,4 @@
+//prgrammed by Shauna Mahoney, and Guy Haiby
 'use strict'
 
 let config = {
@@ -12,7 +13,7 @@ let config = {
     },
     width: 800,
     height: 600,
-    scene: [ Menu, Level1, Roman, Level3, GameOver]
+    scene: [ Menu, Level1, Roman, Level3, GameOver, Win]
 }
 
 const game = new Phaser.Game(config)

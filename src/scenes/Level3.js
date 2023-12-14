@@ -39,6 +39,11 @@ class Level3 extends Phaser.Scene {
             this.scene.start('gameOver')
         })
 
+        //Scooby collies with snack = win level 
+        this.physics.add.collider(this.scooby, this.ss, (scooby, ss) => {
+            this.scene.start('winGame')
+        })
+
         //enemy / ammo collision done separately so that not all enemies disappear
         //Ammo & Enemy Handling
         // Loop through each enemy in the group

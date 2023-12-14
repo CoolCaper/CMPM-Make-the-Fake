@@ -11,12 +11,15 @@ class Level1 extends Phaser.Scene {
         this.load.image('test', './assets/moon.png')
         this.load.image('ammo', './assets/shoot.png')
         this.load.image('ss', './assets/scooby snax.png')
+
+        //audio sfx
+        this.load.audio('shoot', './assets/shoot_sfx.mp3');
+
     }
 
     create() {
         //background image
         this.add.image(game.config.width / 2, game.config.height / 2, 'background');
-
         //add ammo
         this.Ammo = this.physics.add.sprite(25, 50, 'ammo').body.setAllowGravity(false)
         this.Ammo2 = this.physics.add.sprite(50, 50, 'ammo').body.setAllowGravity(false)
@@ -42,7 +45,7 @@ class Level1 extends Phaser.Scene {
             this.scene.start('gameOver')
         })
 
-        
+        //Scooby collies with snack = win level 
         this.physics.add.collider(this.scooby, this.ss, (scooby, ss) => {
             this.scene.start('Roman')
         })
@@ -206,6 +209,7 @@ class Level1 extends Phaser.Scene {
         //make ammo move when shot
             if (this.ammo1) {
                 if (this.ammo1_left) {
+                    this.sound.play('shoot');
                     this.Ammo.x -= 4
                 } else {
                         this.Ammo.x += 4
@@ -213,6 +217,7 @@ class Level1 extends Phaser.Scene {
             }
             if (this.ammo2) {
                 if (this.ammo2_left) {
+                    this.sound.play('shoot');
                     this.Ammo2.x -= 4
                 } else {
                         this.Ammo2.x += 4
@@ -220,6 +225,7 @@ class Level1 extends Phaser.Scene {
             }
             if (this.ammo3) {
                 if (this.ammo3_left) {
+                    this.sound.play('shoot');
                     this.Ammo3.x -= 4
                 } else {
                         this.Ammo3.x += 4
