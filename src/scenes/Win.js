@@ -31,55 +31,6 @@ class Win extends Phaser.Scene{
             frameRate: 4,
             repeat: -1
         });
-        this.star.play('turn')
-        let w = 300
-        let h = 300
-        let star_tween = this.load.image('star', './assets/star.png');
-        let star = this.tweens.chain({
-            targets: star_tween, 
-            ease: 'Bounce.easeOut',
-            loop: 1,
-            paused: false,
-            tweens: [
-            {  
-                x : w - 64,
-                duration : 500
-            },
-            {  
-                
-                angle: { from: 0, to: 90 },
-                duration : 500
-            },
-            {     
-                y : h - 64,
-                duration : 1000,
-                ease : 'Sine.easeOut',
-            }, 
-            
-            {  
-                
-                angle: { from: 90, to: 180 },
-                duration : 500
-            },
-            {
-                x : 64,
-                duration : 1500
-            },            
-            {    
-                angle: { from: 180, to: 270 },
-                duration : 500
-            },
-            {
-                y : 64,
-                duration : 1000
-            },                        
-            {    
-                angle: { from: 270, to: 360 },
-                duration : 500
-            },
-            ]
-        })
-        star.restart()
         //show menu text 
         this.add.text(game.config.width/2,game.config.height/1.5 + game.config.height/20,'Press <- or -> to play again',menuConfig).setOrigin(0.5);
         menuConfig.fontSize = '40px'
@@ -94,7 +45,7 @@ class Win extends Phaser.Scene{
           this.sound.play('sfx_select');
           this.scene.start('Level1');    
         }
-        
+        this.star.anims.play('turn')
       }
 
 }

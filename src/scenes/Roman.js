@@ -138,7 +138,7 @@ class Roman extends Phaser.Scene{
         this.instruct = this.add.text(50, 100, 'Use the left and right arrow keys to move around!', this.instruct_config).setVisible(false)
         this.instruct2 = this.add.text(50, 180, 'Press F to shoot! (But beware! You have limited\nammo! Check the top left corner to see how much\nyou have left)', this.instruct_config).setVisible(false)
         this.instruct3 = this.add.text(50, 280, 'Press space to jump, avoid enemies, and most\nimportantly, collect the Scooby Snacks\n(the box with the s on it)!', this.instruct_config).setVisible(false)
-        this.instruct4 = this.add.text(50, 380, 'Finally, Press I to make this text go away!', this.instruct_config).setVisible(false)
+        this.instruct4 = this.add.text(50, 380, 'Press 1 to start over from level 1\nFinally, Press I to make this text go away!', this.instruct_config).setVisible(false)
 
         this.i_toggle = this.add.text(550, 575, 'Press I to toggle the instructions!', this.instruct_toggle)
         this.ammo_count = 1;
