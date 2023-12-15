@@ -1,4 +1,11 @@
 //prgrammed by Shauna Mahoney, and Guy Haiby
+
+//the components we used were 
+// (animation) (game win screen)
+//tweens (game over)
+// timer ("READY? GO!" in scene 1)
+// physics (scooby, enemies, platforms ,etc.)
+// text objects (instructions, "READY? GO!")
 'use strict'
 
 let config = {
@@ -23,6 +30,14 @@ const game = new Phaser.Game(config)
 
 //define keys for movement and switching levels 
 let keyJUMP, keyLEFT, keyRIGHT;
+this.total_time = 0;
+let integer = 0;
+let lev1Time = 0
+let lev2Time = 0
+let lev3Time = 0
+function increment() {
+    integer++;
+  }
 const NUMS = {
     ONE: Phaser.Input.Keyboard.KeyCodes.ONE,
     TWO: Phaser.Input.Keyboard.KeyCodes.TWO,

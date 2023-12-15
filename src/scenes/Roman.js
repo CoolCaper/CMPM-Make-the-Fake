@@ -20,7 +20,32 @@ class Roman extends Phaser.Scene{
         this.ammo2 = false
         this.ammo3 = false
         this.ammo_count = 1;
+
+        
+        //time
+this.timer = this.time.addEvent({
+    delay: 1000,                // ms
+    callback: increment,
+    //args: [],
+    callbackScope: this,
+    loop: true
+  });
+        
+  this.time_toggle = { //toggle
+    fontFamily: 'Courier',
+    fontSize: '12px',
+    backgroundColor: '#FFFFFF',
+    color: '#000000',
+    align: 'left',
+    padding: {
+      top: 5,
+      bottom: 5,
+    },
+    fixedWidth: 400
+}
     }
+
+
 
     create() {
         //background image

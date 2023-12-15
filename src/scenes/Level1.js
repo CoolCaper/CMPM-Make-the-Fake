@@ -21,12 +21,25 @@ class Level1 extends Phaser.Scene {
         this.ammo1 = false;
         this.ammo2 = false
         this.ammo3 = false
-        this.ammo_count = 1;
-
+        this.ammo_count = 1;  
     }
 
     create() {
         //background image
+                //time
+      
+                this.time_toggle = { //toggle
+                    fontFamily: 'Courier',
+                    fontSize: '24px',
+                    backgroundColor: '#FFFFFF',
+                    color: '#000000',
+                    align: 'center',
+                    padding: {
+                      top: 5,
+                      bottom: 5,
+                    },
+                    fixedWidth: 75
+                }
         this.add.image(game.config.width / 2, game.config.height / 2, 'background');
         //add ammo
         this.Ammo = this.physics.add.sprite(25, 50, 'ammo').body.setAllowGravity(false)
@@ -50,11 +63,13 @@ class Level1 extends Phaser.Scene {
 
         //if collide with enemies, game over
         this.physics.add.collider(this.scooby, this.enemies, (scooby, enemy1) => {
+            //this.timer.remove()
             this.scene.start('gameOver')
         })
 
         //Scooby collies with snack = win level 
         this.physics.add.collider(this.scooby, this.ss, (scooby, ss) => {
+            lev1Time = integer
             this.scene.start('Roman')
         })
         //enemy / ammo collision done separately so that not all enemies disappear
@@ -146,7 +161,10 @@ class Level1 extends Phaser.Scene {
 
         this.i_toggle = this.add.text(550, 575, 'Press I to toggle the instructions!', this.instruct_toggle)
         this.ammo_count = 1;
-        
+        this.timeT = this.add.text(400, 300, 'Ready?', this.time_toggle)
+        this.time.delayedCall(1500, () => {         
+            this.timeT = this.add.text(400, 300, 'GO!', this.time_toggle)
+        }, null, this);
     }
 
     update() {
@@ -164,7 +182,8 @@ class Level1 extends Phaser.Scene {
         }
         if (Phaser.Input.Keyboard.JustDown(NUMS.ONE)) {
             this.sound.play('sfx_select');
-            this.scene.start('Level1');    
+            //this.timer.remove()
+            this.scene.restart();    
         } else if(Phaser.Input.Keyboard.JustDown(NUMS.TWO)){
             this.sound.play('sfx_select');
             this.scene.start('Roman'); 

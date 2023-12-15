@@ -18,7 +18,7 @@ class Scooby extends Phaser.Physics.Arcade.Sprite {
     }
 
 
-
+    
     update() {
 
         if (this.cursors.left.isDown) {
