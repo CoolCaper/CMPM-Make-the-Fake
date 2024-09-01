@@ -41,6 +41,19 @@ class Level1 extends Phaser.Scene {
       },
       fixedWidth: 75,
     };
+
+    this.vanish = {
+      //toggle
+      fontFamily: "Courier",
+      fontSize: "24px",
+      color: "#000000",
+      align: "center",
+      padding: {
+        top: 5,
+        bottom: 5,
+      },
+      fixedWidth: 75,
+    };
     this.add.image(game.config.width / 2, game.config.height / 2, "background");
     //add ammo
     this.Ammo = this.physics.add
@@ -230,7 +243,16 @@ class Level1 extends Phaser.Scene {
     this.time.delayedCall(
       1500,
       () => {
+        this.timeT.setVisible(false);
         this.timeT = this.add.text(400, 300, "GO!", this.time_toggle);
+      },
+      null,
+      this
+    );
+    this.time.delayedCall(
+      3000,
+      () => {
+        this.timeT.setVisible(false);
       },
       null,
       this
