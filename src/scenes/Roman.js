@@ -77,7 +77,7 @@ this.timer = this.time.addEvent({
 
         //Scooby collies with snack = win level 
         this.physics.add.collider(this.scooby, this.ss, (scooby, ss) => {
-            this.scene.start('winGame')
+            this.scene.start('Level3')
         })
         //enemy / ammo collision done separately so that not all enemies disappear
         //Ammo & Enemy Handling
